@@ -25,7 +25,7 @@ const WalletList = props => {
 
         }
         sendRequest()
-    }, [props.success, deleted])
+    }, [props.added, deleted])
 
     const deleteHandler = async _id => {
 

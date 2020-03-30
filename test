@@ -1,0 +1,50 @@
+docker run -d --network b0036aed9abe --name mongo_db \
+    -e MONGO_INITDB_ROOT_USERNAME=admin \
+    -e MONGO_INITDB_ROOT_PASSWORD=secret \
+    mongo
+
+
+
+
+docker run -it --rm --network b0036aed9abe mongo \
+    mongo --host mongo_db \
+        -u admin \
+        -p secret \
+        --authenticationDatabase admin \       
+        omides_money_management_db
+
+
+
+docker network ls
+
+
+db.createUser({
+  user: "omides",
+  pwd: "secret",
+  roles: [{ role: "readWrite", db: "omides_money_management_db" }]
+})
+
+
+
+
+
+// -----------------------------
+mongo-init.sh
+
+mongo -- "$MONGO_INITDB_DATABASE" <<EOF
+    db.createUser({
+        user: "$MONGO_USERNAME",
+        pwd: "$MONGO_PASSWORD"
+        roles : [
+            { role: "readWrite", db: "$MONGO_INITDB_DATABASE" }
+        ]
+    })
+EOF
+
+
+
+//--------------------------------------
+
+
+
+docker exec -it 61cbc6f23630 mongo --username "admin" --password --authenticationDatabase admin --authenticationMechanism SCRAM-SHA-256

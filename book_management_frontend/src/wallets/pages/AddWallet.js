@@ -10,6 +10,7 @@ const AddWallet = () => {
     const [accountNumber, setAccountNumber] = useState("")
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState(false)
+    const [added, setAdded] = useState(false)
 
 
     const addWalletSubmitHandler = async event => {
@@ -32,16 +33,20 @@ const AddWallet = () => {
             if(response.status === 404 || response.status === 500) {
                 setError(true)
                 setSuccess(false)
+                setAdded(false)
                 console.log("404 or 500")
             } else {
                 setError(false)
                 setSuccess(true)
+                setAdded(true)
+                setAdded(false)
             }
 
 
         }catch (e) {
             setError(true)
             setSuccess(false)
+            setAdded(false)
             console.log("Catch ", e)
         }
 
@@ -89,7 +94,7 @@ const AddWallet = () => {
                 /><br/>
                 <button type="submit" >افزودن کیف پول</button>
             </form>
-            <WalletList success={success}/>
+            <WalletList added={added}/>
         </div>
 
     );
