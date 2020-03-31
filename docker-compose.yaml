@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.7"
 services:
   mongo_db:
     image: mongo:4.2.5
@@ -14,7 +14,7 @@ services:
       MONGODB_DATA_DIR: /data/db
       MONDODB_LOG_DIR: /dev/null
     volumes: 
-      - ./mongodbdata:/data/db
+      - mongodbdata:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
   server_flask:
     container_name: server_flask
@@ -39,3 +39,6 @@ services:
     volumes: 
       - /app/node_modules
       - ./book_management_frontend:/app
+volumes: 
+  mongodbdata:
+    driver: local
