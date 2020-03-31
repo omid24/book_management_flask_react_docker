@@ -20,6 +20,7 @@ services:
     container_name: server_flask
     build:
       context: "./book_management_backend"
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     restart: unless-stopped
@@ -34,6 +35,7 @@ services:
     container_name: client_react
     build:
       context: "./book_management_frontend"
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes: 
