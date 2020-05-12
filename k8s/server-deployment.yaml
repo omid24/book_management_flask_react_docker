@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: server-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       component: server
@@ -16,4 +16,17 @@ spec:
         - name: server
           image: omidesmaeili/book_management_flask
           ports:
-            - containerPort: 5000 
+            - containerPort: 5000
+          env:
+            - name: MONGODB_HOSTNAME
+              value: mongo-cluster-ip-service
+            - name: MONGODB_PORT
+              value: "27017"
+            - name: MONGODB_DATABASE
+              value: omides_money_management_db
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongopassword
+                  key: MONGODB_PASSWORD
+      restartPolicy: Always
